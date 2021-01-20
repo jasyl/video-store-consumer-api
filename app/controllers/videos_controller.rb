@@ -11,6 +11,10 @@ class VideosController < ApplicationController
     render status: :ok, json: data
   end
 
+  def create
+    new_video = Video.new()
+  end
+
   def show
     render(
       status: :ok,
@@ -29,4 +33,8 @@ class VideosController < ApplicationController
       render status: :not_found, json: { errors: { title: ["No video with title #{params["title"]}"] } }
     end
   end
+end
+
+def video_params
+  return params.permit(:external_id, :title, :inventory, :overview, :release_date, :image_url)
 end
