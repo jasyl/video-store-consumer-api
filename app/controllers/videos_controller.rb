@@ -12,7 +12,7 @@ class VideosController < ApplicationController
   end
 
   def create
-    new_video = Video.new()
+    new_video = Video.new(external_id: video_params[:external_id], title: video_params[:title], overview: video_params[:overview], release_date: video_params[:release_date], image_url: video_params[:image_url])
   end
 
   def show
@@ -33,8 +33,9 @@ class VideosController < ApplicationController
       render status: :not_found, json: { errors: { title: ["No video with title #{params["title"]}"] } }
     end
   end
+
+  def video_params
+    return params.permit(:external_id, :title, :inventory, :overview, :release_date, :image_url)
+  end
 end
 
-def video_params
-  return params.permit(:external_id, :title, :inventory, :overview, :release_date, :image_url)
-end
