@@ -11,8 +11,16 @@ class VideosController < ApplicationController
     render status: :ok, json: data
   end
 
-  def create
+  def add_video
     new_video = Video.new(external_id: video_params[:external_id], title: video_params[:title], overview: video_params[:overview], release_date: video_params[:release_date], image_url: video_params[:image_url])
+
+    if !Video.find_by(external_id: new_video.external_id)
+      if new_video.save
+        render status: ok, json: {}
+      else
+        render status :bad_request, json: {errors: "This video already exists in the Library"}
+      end
+    end
   end
 
   def show
