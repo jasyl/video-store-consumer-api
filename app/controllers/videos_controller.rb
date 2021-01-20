@@ -16,7 +16,7 @@ class VideosController < ApplicationController
 
     if !Video.find_by(external_id: new_video.external_id)
       if new_video.save
-        render status: ok, json: {}
+        render status: :ok, json: {}
       else
         render status :bad_request, json: {errors: "This video already exists in the Library"}
       end
