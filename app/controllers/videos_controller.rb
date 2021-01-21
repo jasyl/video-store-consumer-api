@@ -12,7 +12,7 @@ class VideosController < ApplicationController
   end
 
   def add_video
-    new_video = Video.new(external_id: video_params[:external_id], title: video_params[:title], overview: video_params[:overview], release_date: video_params[:release_date], image_url: video_params[:image_url])
+    new_video = Video.new(external_id: video_params[:external_id], title: video_params[:title], overview: video_params[:overview], release_date: video_params[:release_date], image_url: video_params[:image_url], inventory: 5)
 
     if !Video.find_by(external_id: new_video.external_id) && new_video.external_id != nil
       if new_video.save
